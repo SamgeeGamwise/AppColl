@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/AppColl/AppColl.csproj" />
+  <Project Path="tests/AppColl.Tests/AppColl.Tests.csproj" Id="1bfb0e37-759d-48e2-b869-3d5484c4528b" />
+</Solution>
