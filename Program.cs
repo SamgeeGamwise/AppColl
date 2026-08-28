@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using AppCollRider.DataSources;
 using AppCollRider.Services;
+using AppCollRider.Sessions;
 using AppCollRider.State;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,8 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<BroadbandSession>();
 builder.Services.AddScoped<BroadbandService>();
 builder.Services.AddHttpClient<IBroadbandDataSource, BroadbandCsvDataSource>();
 builder.Services.AddSingleton<IBroadbandStateStore, InMemoryBroadbandStateStore>();

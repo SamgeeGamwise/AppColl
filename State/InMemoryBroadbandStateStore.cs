@@ -4,16 +4,16 @@ namespace AppCollRider.State;
 
 public class InMemoryBroadbandStateStore : IBroadbandStateStore
 {
-    private readonly List<BroadbandImportState> _workspaces = [];
+    private readonly List<BroadbandImportState> _states = [];
 
     public bool Has(Guid stateId)
     {
-        return  _workspaces.Any(w => w.Id == stateId);
+        return  _states.Any(w => w.Id == stateId);
     }
 
-    public void Add(Guid guid, BroadbandRecord[] records)
+    public void Add(Guid guid, IReadOnlyCollection<BroadbandRecord> records)
     {
-        _workspaces.Add(new BroadbandImportState
+        _states.Add(new BroadbandImportState
         {
             Id = guid,
             Records = records,
@@ -23,13 +23,13 @@ public class InMemoryBroadbandStateStore : IBroadbandStateStore
 
     public BroadbandImportState Get(Guid stateId)
     {
-        var workspace = _workspaces.FirstOrDefault(w => w.Id == stateId);
+        var states = _states.First(w => w.Id == stateId);
 
-        return workspace ?? throw new ArgumentException("Broadband state not found", nameof(stateId));
+        return states;
     }
 
     public void Remove(Guid stateId)
     {
-        _workspaces.RemoveAll(w => w.Id == stateId);
+        _states.RemoveAll(w => w.Id == stateId);
     }
 }

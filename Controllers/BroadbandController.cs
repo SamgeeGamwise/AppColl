@@ -1,57 +1,50 @@
 using AppCollRider.Services;
 using AppCollRider.Guards;
 using AppCollRider.Models;
+using AppCollRider.Sessions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AppCollRider.Controllers;
 
 [ApiController]
 [Route("api/broadband")]
-public class BroadbandController : ControllerBase
+public class BroadbandController(BroadbandService broadbandService, BroadbandSession broadbandSession) : ControllerBase
 {
-    private readonly BroadbandService _broadbandService;
-
-    public BroadbandController(BroadbandService broadbandService)
-    {
-        _broadbandService = broadbandService;
-    }
-    
     [HttpPost("import")]
     public async Task<IActionResult> ImportAsync()
     {
-        var guid = await _broadbandService.Import();
+        var broadbandStateId = broadbandSession.GetStateId();
         
-        HttpContext.Session.SetString("BroadbandStateStoreGuid", guid.ToString());
+        if (broadbandStateId is not null)
+        {
+            return BadRequest();
+        }
         
-        return Ok();
+        var guid = await broadbandService.Import();
+        
+        broadbandSession.SetBroadbandStateId(guid);
+        
+        return NoContent();
     }
     
     [RequireBroadbandData]
     [HttpGet("records")]
-    public IEnumerable<BroadbandRecord> GetRecords([FromQuery] decimal maxNoInternetAccessPercentage)
+    public IEnumerable<BroadbandRecord> GetRecords([FromQuery] BroadbandQuery query)
     {
-        if (HttpContext.Items["BroadbandStateStoreGuid"] is not Guid broadbandStateStoreGuid)
-        {
-            throw new Exception("The broadbandStateStoreGuid is missing.");
-        }
-        
-        var records = _broadbandService.GetRecords(broadbandStateStoreGuid); 
+        var broadbandStateId = broadbandSession.GetValidStateId();
+        var records = broadbandService.GetRecords(broadbandStateId, query); 
             
         return records;
     }
     
     [RequireBroadbandData]
     [HttpGet("summary")]
-    public IEnumerable<BroadbandRecord> GetSummary()
+    public BroadbandSummary GetSummary([FromQuery] BroadbandQuery query)
     {
-        if (HttpContext.Items["BroadbandStateStoreGuid"] is not Guid broadbandStateStoreGuid)
-        {
-            throw new Exception("The broadbandStateStoreGuid is missing.");
-        }
+        var broadbandStateId = broadbandSession.GetValidStateId();
+        var summary = broadbandService.GetSummary(broadbandStateId, query);
         
-        var records = _broadbandService.GetRecords(broadbandStateStoreGuid);
-        
-        return records;
+        return summary;
     }
     
     [RequireBroadbandData]
@@ -63,14 +56,21 @@ public class BroadbandController : ControllerBase
     
     [RequireBroadbandData]
     [HttpPost("reset")]
-    public IEnumerable<BroadbandRecord> Reset()
+    public IActionResult Reset()
     {
-        return [];
+        var broadbandStateId = broadbandSession.GetValidStateId();
+        
+        broadbandService.Reset(broadbandStateId);
+        broadbandSession.ClearBroadbandStateId();
+        
+        return NoContent();
     }
     
     [HttpGet("status")]
-    public IEnumerable<BroadbandRecord> GetStatus()
+    public BroadbandStatus GetStatus()
     {
-        return [];
+        var broadbandStateId = broadbandSession.GetStateId();
+
+        return broadbandService.GetStateStatus(broadbandStateId);
     }
 }

@@ -4,20 +4,13 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AppCollRider.Guards;
 
-public sealed class RequireBroadbandDataFilter : IAsyncActionFilter
+public sealed class RequireBroadbandDataFilter(IBroadbandStateStore broadbandStateStore) : IAsyncActionFilter
 {
-    private readonly IBroadbandStateStore _broadbandStateStore;
-
-    public RequireBroadbandDataFilter(IBroadbandStateStore broadbandStateStore)
-    {
-        _broadbandStateStore = broadbandStateStore;
-    }
-  
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         var broadbandStateStoreGuidString = context.HttpContext.Session.GetString("BroadbandStateStoreGuid");
 
-        if (!Guid.TryParse(broadbandStateStoreGuidString, out var broadbandStateStoreGuid) || !_broadbandStateStore.Has(broadbandStateStoreGuid))
+        if (!Guid.TryParse(broadbandStateStoreGuidString, out var broadbandStateStoreGuid) || !broadbandStateStore.Has(broadbandStateStoreGuid))
         {
             context.Result = new BadRequestObjectResult(new
             {

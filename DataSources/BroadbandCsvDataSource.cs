@@ -5,19 +5,13 @@ using CsvHelper.Configuration;
 
 namespace AppCollRider.DataSources;
 
-public class BroadbandCsvDataSource : IBroadbandDataSource
+public class BroadbandCsvDataSource(HttpClient httpClient) : IBroadbandDataSource
 {
-    private readonly HttpClient _httpClient;
     private const string BroadbandDataUrl = "https://data.cityofnewyork.us/resource/qz5f-yx82.csv";
 
-    public BroadbandCsvDataSource(HttpClient httpClient)
-    {
-        _httpClient = httpClient;
-    }
-    
     public async Task<BroadbandRecord[]> GetRecordsAsync(CancellationToken cancellationToken = default)
     {
-        var stream = await _httpClient.GetStreamAsync(BroadbandDataUrl, cancellationToken);
+        var stream = await httpClient.GetStreamAsync(BroadbandDataUrl, cancellationToken);
         
         using var reader = new StreamReader(stream);
         
