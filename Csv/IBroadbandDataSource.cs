@@ -1,6 +1,6 @@
 using AppCollRider.Models;
 
-namespace AppCollRider.DataSources;
+namespace AppCollRider.Csv;
 
 public interface IBroadbandDataSource
 {

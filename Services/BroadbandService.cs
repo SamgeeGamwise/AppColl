@@ -1,6 +1,7 @@
-using AppCollRider.DataSources;
+using AppCollRider.Csv;
 using AppCollRider.Models;
 using AppCollRider.State;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AppCollRider.Services;
 
@@ -14,6 +15,11 @@ public class BroadbandService(IBroadbandStateStore broadbandStateStore, IBroadba
         broadbandStateStore.Add(guid, records);
 
         return guid;
+    }
+
+    public async Task<int> Export(BroadbandExportQuery guid)
+    {
+        
     }
 
     public BroadbandRecord[] GetRecords(Guid guid, BroadbandRecordQuery recordQuery)

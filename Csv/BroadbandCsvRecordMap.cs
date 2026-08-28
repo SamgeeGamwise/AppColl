@@ -2,11 +2,11 @@
 using AppCollRider.Models;
 using CsvHelper.Configuration;
 
-namespace AppCollRider.DataSources;
+namespace AppCollRider.Csv;
 
-internal sealed class BroadbandRecordMap : ClassMap<BroadbandRecord>
+internal sealed class BroadbandCsvRecordMap : ClassMap<BroadbandRecord>
 {
-    private BroadbandRecordMap()
+    private BroadbandCsvRecordMap()
     {
         Map(x => x.Oid)
             .Name("oid");
@@ -31,11 +31,11 @@ internal sealed class BroadbandRecordMap : ClassMap<BroadbandRecord>
 
         Map(x => x.NoHomeBroadbandAdoptionLevel)
             .Name("no_home_broadband_adoption_1")
-            .Convert(args => StringToConnectionLevel(args.Row.GetField("no_home_broadband_adoption_1")));
+            .TypeConverter<BroadbandConnectionLevelConverter>();
 
         Map(x => x.NoMobileBroadbandAdoptionLevel)
             .Name("no_mobile_broadband_adoption_1")
-            .Convert(args => StringToConnectionLevel(args.Row.GetField("no_mobile_broadband_adoption_1")));
+            .TypeConverter<BroadbandConnectionLevelConverter>();
 
         Map(x => x.CommercialFiberMaxIsp)
             .Name("commercial_fiber_max_isp");
