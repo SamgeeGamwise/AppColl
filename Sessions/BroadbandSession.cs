@@ -2,11 +2,9 @@ namespace AppCollRider.Sessions;
 
 public sealed class BroadbandSession(IHttpContextAccessor httpContextAccessor)
 {    
-    private const string StateSessionIdKey = "BroadbandSessions";
-
     public Guid? GetStateId()
     {
-        var broadbandStateIdString = httpContextAccessor.HttpContext?.Session.GetString(StateSessionIdKey);
+        var broadbandStateIdString = httpContextAccessor.HttpContext?.Session.GetString(BroadbandSessionKeys.SessionStateId);
         
         Guid? broadbandStateId = null;
 
@@ -18,9 +16,9 @@ public sealed class BroadbandSession(IHttpContextAccessor httpContextAccessor)
         return broadbandStateId;
     }
 
-    public Guid GetValidStateId()
+    public Guid GetValidatedStateId()
     {
-        var broadbandStateId = httpContextAccessor.HttpContext?.Items[StateSessionIdKey];
+        var broadbandStateId = httpContextAccessor.HttpContext?.Items[BroadbandSessionKeys.ValidatedSessionStateId];
 
         if (broadbandStateId is Guid validStateId)
         {
@@ -32,11 +30,12 @@ public sealed class BroadbandSession(IHttpContextAccessor httpContextAccessor)
     
     public void SetBroadbandStateId(Guid broadbandStateId)
     {
-        httpContextAccessor.HttpContext?.Session.SetString(StateSessionIdKey, broadbandStateId.ToString());
+        httpContextAccessor.HttpContext?.Session.SetString(BroadbandSessionKeys.SessionStateId, broadbandStateId.ToString());
     }
 
     public void ClearBroadbandStateId()
     {
-        httpContextAccessor.HttpContext?.Session.Remove(StateSessionIdKey);
+        httpContextAccessor.HttpContext?.Session.Remove(BroadbandSessionKeys.SessionStateId);
+        httpContextAccessor.HttpContext?.Items.Remove(BroadbandSessionKeys.ValidatedSessionStateId);
     }
 }

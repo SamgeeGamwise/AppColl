@@ -1,3 +1,4 @@
+using AppCollRider.Sessions;
 using AppCollRider.State;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -8,7 +9,7 @@ public sealed class RequireBroadbandDataFilter(IBroadbandStateStore broadbandSta
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        var broadbandStateStoreGuidString = context.HttpContext.Session.GetString("BroadbandStateStoreGuid");
+        var broadbandStateStoreGuidString = context.HttpContext.Session.GetString(BroadbandSessionKeys.SessionStateId);
 
         if (!Guid.TryParse(broadbandStateStoreGuidString, out var broadbandStateStoreGuid) || !broadbandStateStore.Has(broadbandStateStoreGuid))
         {
@@ -20,7 +21,7 @@ public sealed class RequireBroadbandDataFilter(IBroadbandStateStore broadbandSta
             return;
         }
     
-        context.HttpContext.Items["BroadbandStateStoreGuid"] = broadbandStateStoreGuid;
+        context.HttpContext.Items[BroadbandSessionKeys.ValidatedSessionStateId] = broadbandStateStoreGuid;
     
         await next();
     }

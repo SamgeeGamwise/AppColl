@@ -16,17 +16,17 @@ public class BroadbandService(IBroadbandStateStore broadbandStateStore, IBroadba
         return guid;
     }
 
-    public BroadbandRecord[] GetRecords(Guid guid, BroadbandQuery query)
+    public BroadbandRecord[] GetRecords(Guid guid, BroadbandRecordQuery recordQuery)
     {
         var state = broadbandStateStore.Get(guid);
 
-        return ApplyQuery(state.Records, query).ToArray();
+        return ApplyQuery(state.Records, recordQuery).ToArray();
     }
     
-    public BroadbandSummary GetSummary(Guid guid, BroadbandQuery query)
+    public BroadbandSummary GetSummary(Guid guid, BroadbandRecordQuery recordQuery)
     {
         var state = broadbandStateStore.Get(guid);
-        var records =  ApplyQuery(state.Records, query).ToArray();
+        var records =  ApplyQuery(state.Records, recordQuery).ToArray();
         
         return Summarize(records);
     }
@@ -116,84 +116,84 @@ public class BroadbandService(IBroadbandStateStore broadbandStateStore, IBroadba
             Math.Round(value, 4);
     }
 
-    private static IEnumerable<BroadbandRecord> ApplyQuery(IEnumerable<BroadbandRecord> records, BroadbandQuery query)
+    private static IEnumerable<BroadbandRecord> ApplyQuery(IEnumerable<BroadbandRecord> records, BroadbandRecordQuery recordQuery)
     {
         var result = records;
 
-        if (!string.IsNullOrWhiteSpace(query.ZipCode))
+        if (!string.IsNullOrWhiteSpace(recordQuery.ZipCode))
         {
             result = result.Where(record =>
-                record.ZipCode == query.ZipCode.Trim());
+                record.ZipCode == recordQuery.ZipCode.Trim());
         }
 
-        if (query.MinHomeBroadbandAdoption.HasValue)
+        if (recordQuery.MinHomeBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.HomeBroadbandAdoption >=
-                query.MinHomeBroadbandAdoption.Value);
+                recordQuery.MinHomeBroadbandAdoption.Value);
         }
 
-        if (query.MaxHomeBroadbandAdoption.HasValue)
+        if (recordQuery.MaxHomeBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.HomeBroadbandAdoption <=
-                query.MaxHomeBroadbandAdoption.Value);
+                recordQuery.MaxHomeBroadbandAdoption.Value);
         }
 
-        if (query.MinMobileBroadbandAdoption.HasValue)
+        if (recordQuery.MinMobileBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.MobileBroadbandAdoption >=
-                query.MinMobileBroadbandAdoption.Value);
+                recordQuery.MinMobileBroadbandAdoption.Value);
         }
 
-        if (query.MaxMobileBroadbandAdoption.HasValue)
+        if (recordQuery.MaxMobileBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.MobileBroadbandAdoption <=
-                query.MaxMobileBroadbandAdoption.Value);
+                recordQuery.MaxMobileBroadbandAdoption.Value);
         }
 
-        if (query.MinNoInternetAccessPercentage.HasValue)
+        if (recordQuery.MinNoInternetAccessPercentage.HasValue)
         {
             result = result.Where(record =>
                 record.NoInternetAccessPercentage >=
-                query.MinNoInternetAccessPercentage.Value);
+                recordQuery.MinNoInternetAccessPercentage.Value);
         }
 
-        if (query.MaxNoInternetAccessPercentage.HasValue)
+        if (recordQuery.MaxNoInternetAccessPercentage.HasValue)
         {
             result = result.Where(record =>
                 record.NoInternetAccessPercentage <=
-                query.MaxNoInternetAccessPercentage.Value);
+                recordQuery.MaxNoInternetAccessPercentage.Value);
         }
 
-        if (query.MinNoHomeBroadbandAdoption.HasValue)
+        if (recordQuery.MinNoHomeBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.NoHomeBroadbandAdoption >=
-                query.MinNoHomeBroadbandAdoption.Value);
+                recordQuery.MinNoHomeBroadbandAdoption.Value);
         }
 
-        if (query.MaxNoHomeBroadbandAdoption.HasValue)
+        if (recordQuery.MaxNoHomeBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.NoHomeBroadbandAdoption <=
-                query.MaxNoHomeBroadbandAdoption.Value);
+                recordQuery.MaxNoHomeBroadbandAdoption.Value);
         }
 
-        if (query.MinNoMobileBroadbandAdoption.HasValue)
+        if (recordQuery.MinNoMobileBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.NoMobileBroadbandAdoption >=
-                query.MinNoMobileBroadbandAdoption.Value);
+                recordQuery.MinNoMobileBroadbandAdoption.Value);
         }
 
-        if (query.MaxNoMobileBroadbandAdoption.HasValue)
+        if (recordQuery.MaxNoMobileBroadbandAdoption.HasValue)
         {
             result = result.Where(record =>
                 record.NoMobileBroadbandAdoption <=
-                query.MaxNoMobileBroadbandAdoption.Value);
+                recordQuery.MaxNoMobileBroadbandAdoption.Value);
         }
 
         return result;

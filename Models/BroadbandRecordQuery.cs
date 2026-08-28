@@ -1,6 +1,6 @@
 namespace AppCollRider.Models;
 
-public sealed class BroadbandQuery
+public sealed class BroadbandRecordQuery
 {
     public string? ZipCode { get; init; }
     public decimal? MaxHomeBroadbandAdoption { get; init; }

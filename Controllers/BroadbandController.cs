@@ -29,19 +29,19 @@ public class BroadbandController(BroadbandService broadbandService, BroadbandSes
     
     [RequireBroadbandData]
     [HttpGet("records")]
-    public IEnumerable<BroadbandRecord> GetRecords([FromQuery] BroadbandQuery query)
+    public IEnumerable<BroadbandRecord> GetRecords([FromQuery] BroadbandRecordQuery recordQuery)
     {
-        var broadbandStateId = broadbandSession.GetValidStateId();
-        var records = broadbandService.GetRecords(broadbandStateId, query); 
+        var broadbandStateId = broadbandSession.GetValidatedStateId();
+        var records = broadbandService.GetRecords(broadbandStateId, recordQuery); 
             
         return records;
     }
     
     [RequireBroadbandData]
     [HttpGet("summary")]
-    public BroadbandSummary GetSummary([FromQuery] BroadbandQuery query)
+    public BroadbandSummary GetSummary([FromQuery] BroadbandRecordQuery query)
     {
-        var broadbandStateId = broadbandSession.GetValidStateId();
+        var broadbandStateId = broadbandSession.GetValidatedStateId();
         var summary = broadbandService.GetSummary(broadbandStateId, query);
         
         return summary;
@@ -49,16 +49,18 @@ public class BroadbandController(BroadbandService broadbandService, BroadbandSes
     
     [RequireBroadbandData]
     [HttpGet("export")]
-    public IEnumerable<BroadbandRecord> ExportAsync()
+    public async Task<IActionResult> Export([FromQuery] BroadbandExportQuery query)
     {
-        return [];
+        var data = await broadbandService.Export(query);
+
+        return data;
     }
     
     [RequireBroadbandData]
     [HttpPost("reset")]
     public IActionResult Reset()
     {
-        var broadbandStateId = broadbandSession.GetValidStateId();
+        var broadbandStateId = broadbandSession.GetValidatedStateId();
         
         broadbandService.Reset(broadbandStateId);
         broadbandSession.ClearBroadbandStateId();
