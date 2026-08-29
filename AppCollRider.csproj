@@ -12,7 +12,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="ClientApp\src\app\core\api\" />
       <Folder Include="ClientApp\src\app\shared\components\" />
       <Folder Include="Data\" />
     </ItemGroup>
