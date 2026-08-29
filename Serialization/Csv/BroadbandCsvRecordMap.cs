@@ -2,7 +2,7 @@
 using AppCollRider.Models;
 using CsvHelper.Configuration;
 
-namespace AppCollRider.Csv;
+namespace AppCollRider.Serialization.Csv;
 
 internal sealed class BroadbandCsvRecordMap : ClassMap<BroadbandRecord>
 {

@@ -1,6 +1,8 @@
+using AppCollRider.Filters;
 using AppCollRider.Services;
-using AppCollRider.Guards;
 using AppCollRider.Models;
+using AppCollRider.Models.Requests;
+using AppCollRider.Models.Response;
 using AppCollRider.Sessions;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,11 +51,12 @@ public class BroadbandController(BroadbandService broadbandService, BroadbandSes
     
     [RequireBroadbandData]
     [HttpGet("export")]
-    public async Task<IActionResult> Export([FromQuery] BroadbandExportQuery query)
+    public IActionResult Export([FromQuery] BroadbandExportQuery exportQuery, [FromQuery] BroadbandRecordQuery recordQuery)
     {
-        var data = await broadbandService.Export(query);
+        var broadbandStateId = broadbandSession.GetValidatedStateId();
+        var exportFile = broadbandService.Export(broadbandStateId, exportQuery, recordQuery);
 
-        return data;
+        return File(exportFile.Content, exportFile.ContentType, exportFile.FileName);
     }
     
     [RequireBroadbandData]

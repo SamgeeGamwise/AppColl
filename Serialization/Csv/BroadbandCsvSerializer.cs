@@ -3,13 +3,12 @@ using System.Text;
 using AppCollRider.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Microsoft.AspNetCore.Mvc;
 
-namespace AppCollRider.Csv;
+namespace AppCollRider.Serialization.Csv;
 
-public class BroadbandCsvSerializer
+public class BroadbandCsvSerializer : IBroadbandSerializer, IBroadbandDeserializer
 {
-    public File Serieralize(BroadbandRecord[] records)
+    public byte[] Serialize(IEnumerable<BroadbandRecord> records)
     {
         var stream = new MemoryStream();
         
@@ -21,14 +20,12 @@ public class BroadbandCsvSerializer
         }
             
         var bytes = stream.ToArray();
-        
-        return File(
-            bytes,
-            "text/csv",
-            "broadband.csv");
+
+
+        return bytes;
     }
     
-    public static BroadbandRecord[] Deserialize(StreamReader reader)
+    public BroadbandRecord[] Deserialize(StreamReader reader)
     {
         using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
         {

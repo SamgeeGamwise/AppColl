@@ -1,4 +1,4 @@
-namespace AppCollRider.Models;
+namespace AppCollRider.Models.Response;
 
 public class BroadbandStatus
 {

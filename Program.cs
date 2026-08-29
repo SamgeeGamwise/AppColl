@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
-using AppCollRider.Csv;
 using AppCollRider.Providers;
+using AppCollRider.Serialization.Csv;
+using AppCollRider.Serialization.Json;
+using AppCollRider.Serialization.Xml;
 using AppCollRider.Services;
 using AppCollRider.Sessions;
 using AppCollRider.State;
@@ -29,9 +31,15 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddScoped<BroadbandSession>();
 builder.Services.AddScoped<BroadbandService>();
-builder.Services.AddHttpClient<IBroadbandDataSource, BroadbandCsvDataProvider>();
+
+builder.Services.AddSingleton<BroadbandCsvSerializer>();
+builder.Services.AddSingleton<BroadbandJsonSerializer>();
+builder.Services.AddSingleton<BroadbandXmlSerializer>();
+
+builder.Services.AddHttpClient<IBroadbandDataProvider, BroadbandCsvDataProvider>();
 builder.Services.AddSingleton<IBroadbandStateStore, InMemoryBroadbandStateStore>();
 
 var app = builder.Build();

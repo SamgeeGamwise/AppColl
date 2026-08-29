@@ -1,6 +1,6 @@
 using AppCollRider.Enums;
 
-namespace AppCollRider.Models;
+namespace AppCollRider.Models.Requests;
 
 public class BroadbandExportQuery
 {

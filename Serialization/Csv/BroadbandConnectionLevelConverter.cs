@@ -3,7 +3,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace AppCollRider.Csv;
+namespace AppCollRider.Serialization.Csv;
 
 public class BroadbandConnectionLevelConverter : DefaultTypeConverter
 {

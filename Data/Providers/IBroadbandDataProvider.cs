@@ -1,8 +1,8 @@
 using AppCollRider.Models;
 
-namespace AppCollRider.Csv;
+namespace AppCollRider.Providers;
 
-public interface IBroadbandDataSource
+public interface IBroadbandDataProvider
 {
     public Task<BroadbandRecord[]> GetRecordsAsync(CancellationToken cancellationToken = default);
 }

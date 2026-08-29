@@ -3,7 +3,7 @@ using AppCollRider.State;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AppCollRider.Guards;
+namespace AppCollRider.Filters;
 
 public sealed class RequireBroadbandDataFilter(IBroadbandStateStore broadbandStateStore) : IAsyncActionFilter
 {

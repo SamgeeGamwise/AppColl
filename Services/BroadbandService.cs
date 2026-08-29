@@ -1,15 +1,26 @@
-using AppCollRider.Csv;
+using AppCollRider.Enums;
 using AppCollRider.Models;
+using AppCollRider.Models.Requests;
+using AppCollRider.Models.Response;
+using AppCollRider.Providers;
+using AppCollRider.Serialization.Csv;
+using AppCollRider.Serialization.Json;
+using AppCollRider.Serialization.Xml;
 using AppCollRider.State;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AppCollRider.Services;
 
-public class BroadbandService(IBroadbandStateStore broadbandStateStore, IBroadbandDataSource broadbandDataSource)
+public class BroadbandService(
+    IBroadbandStateStore broadbandStateStore, 
+    IBroadbandDataProvider broadbandDataProvider, 
+    BroadbandCsvSerializer csvSerializer,
+    BroadbandJsonSerializer jsonSerializer,
+    BroadbandXmlSerializer xmlSerializer
+    )
 {
     public async Task<Guid> Import()
     {
-        var records = await broadbandDataSource.GetRecordsAsync();
+        var records = await broadbandDataProvider.GetRecordsAsync();
         var guid = Guid.NewGuid();
         
         broadbandStateStore.Add(guid, records);
@@ -17,9 +28,35 @@ public class BroadbandService(IBroadbandStateStore broadbandStateStore, IBroadba
         return guid;
     }
 
-    public async Task<int> Export(BroadbandExportQuery guid)
+    public BroadbandExportFile Export(Guid guid, BroadbandExportQuery exportQuery,  BroadbandRecordQuery recordQuery)
     {
-        
+        var state = broadbandStateStore.Get(guid);
+        var queriedRecords = ApplyQuery(state.Records, recordQuery).ToArray();
+
+        var exportFile = exportQuery.Format switch
+        {
+            BroadbandExportFormat.Csv => new BroadbandExportFile
+            {
+                Content = csvSerializer.Serialize(queriedRecords),
+                ContentType = "text/csv",
+                FileName = $"broadband-{state.ImportedAt}.csv"
+            },
+            BroadbandExportFormat.Json => new BroadbandExportFile
+            {
+                Content = jsonSerializer.Serialize(queriedRecords),
+                ContentType = "application/json",
+                FileName = $"broadband-{state.ImportedAt}.json"
+            },
+            BroadbandExportFormat.Xml => new BroadbandExportFile
+            {
+                Content = xmlSerializer.Serialize(queriedRecords),
+                ContentType = "application/xml",
+                FileName = $"broadband-{state.ImportedAt}.xml"
+            },
+            _ => throw new ArgumentException(" error")
+        };
+
+        return exportFile;
     }
 
     public BroadbandRecord[] GetRecords(Guid guid, BroadbandRecordQuery recordQuery)
