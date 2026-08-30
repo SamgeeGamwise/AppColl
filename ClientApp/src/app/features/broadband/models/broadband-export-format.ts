@@ -1,3 +1,3 @@
-export interface BroadbandExportQuery {
+export interface BroadbandExportFormat {
   format: string;
 }
