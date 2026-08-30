@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { BroadbandRecord } from '../../features/broadband/models/broadband-record';
-import { BroadbandStatus } from '../../features/broadband/models/broadband-status';
-import { BroadbandSummary } from '../../features/broadband/models/broadband-summary';
+import { BroadbandRecord } from '@broadband/models/broadband-record';
+import { BroadbandStatus } from '@broadband/models/broadband-status';
+import { BroadbandSummary } from '@broadband/models/broadband-summary';
 
 @Injectable({
   providedIn: 'root'

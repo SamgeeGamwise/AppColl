@@ -1,9 +1,10 @@
 import {inject, Injectable, signal} from '@angular/core';
 
-import { BroadbandRecord } from '../models/broadband-record';
-import { BroadbandRecordQuery } from '../models/broadband-record-query';
-import { BroadbandStatus } from '../models/broadband-status';
-import { BroadbandApi } from '../../../core/api/broadband-api.service';
+import { BroadbandRecord } from '@broadband/models/broadband-record';
+import { BroadbandRecordQuery } from '@broadband/models/broadband-record-query';
+import { BroadbandStatus } from '@broadband/models/broadband-status';
+import { BroadbandApi } from '@app/core/api/broadband-api.service';
+import {catchError, finalize, Observable, tap, throwError} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,18 @@ export class BroadbandStore {
 
   }
 
-  importData(broadbandStatus: BroadbandStatus): void {
+  importData(): Observable<BroadbandStatus> {
+    this.loading.set(true);
+    this.error.set(null);
 
+    return this.api.importData().pipe(
+      tap(status => this.status.set(status)),
+      catchError(error => {
+        this.error.set('Unable to import broadband data.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loading.set(false))
+    )
   }
 
   // TODO:

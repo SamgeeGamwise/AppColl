@@ -9,7 +9,7 @@ import {
   RouterLinkActive
 } from '@angular/router';
 
-import { BroadbandStore } from '../../../features/broadband/state/broadband.store';
+import { BroadbandStore } from '@broadband/state/broadband.store';
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +23,7 @@ import { BroadbandStore } from '../../../features/broadband/state/broadband.stor
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class Navbar {
+export class NavbarComponent {
   private readonly router = inject(Router);
   private readonly broadbandStore = inject(BroadbandStore);
 

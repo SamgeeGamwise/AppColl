@@ -4,7 +4,7 @@ export const routes: Routes = [
   {
     path: '',
     loadChildren: () =>
-      import('./features/broadband/broadband.routes')
+      import('@broadband/broadband.routes')
         .then(m => m.BROADBAND_ROUTES)
   },
   {

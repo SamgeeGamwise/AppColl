@@ -5,8 +5,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BroadbandStore } from '../state/broadband.store';
-import {Navbar} from '../../../shared/components/navbar/navbar';
+import { BroadbandStore } from '@broadband/state/broadband.store';
+import {NavbarComponent} from '@app/shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-import-page',
@@ -14,7 +14,7 @@ import {Navbar} from '../../../shared/components/navbar/navbar';
   templateUrl: './import.page.html',
   styleUrl: './import.page.scss',
   imports: [
-    Navbar
+    NavbarComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -28,13 +28,12 @@ export class ImportPage {
   // readonly error = this.broadbandStore.error;
 
   importData(): void {
-
-    // TODO:
-    // 1. Call broadbandStore.importData()
-    // 2. Wait for success
-    // 3. Navigate to /data
-
-    // Example later:
-    // this.router.navigate(['/data']);
+  this.broadbandStore.importData().subscribe({
+    next: broadbandStatus => {
+      if (broadbandStatus.hasImportedData) {
+        this.router.navigateByUrl('/records').then(r => {});
+      }
+    }
+  });
   }
 }

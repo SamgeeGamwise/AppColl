@@ -1,6 +1,6 @@
 import {Component, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {SiteLayout} from './layout/site-layout/site-layout';
+import {SiteLayout} from '@app/layout/site-layout/site-layout';
 
 @Component({
   selector: 'app-root',

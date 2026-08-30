@@ -5,7 +5,7 @@ import {
   output
 } from '@angular/core';
 
-import { BroadbandRecordQuery } from '../../../models/broadband-record-query';
+import { BroadbandRecordQuery } from '@broadband/models/broadband-record-query';
 
 @Component({
   selector: 'app-broadband-filters',

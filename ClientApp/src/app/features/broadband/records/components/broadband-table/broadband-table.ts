@@ -4,14 +4,12 @@ import {
   input
 } from '@angular/core';
 
-import { BroadbandRecord } from '../../../models/broadband-record';
+import { BroadbandRecord } from '@app/features/broadband/models/broadband-record';
 
 @Component({
   selector: 'app-broadband-table',
   standalone: true,
-  template: `
-    <!-- Broadband table will go here -->
-  `,
+  templateUrl: './broadband-table.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BroadbandTable {

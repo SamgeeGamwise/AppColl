@@ -5,13 +5,17 @@ import {
   OnInit
 } from '@angular/core';
 
-import { BroadbandStore } from '../state/broadband.store';
+import { BroadbandStore } from '@broadband/state/broadband.store';
+import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadband-tabs';
 
 @Component({
   selector: 'app-summary-page',
   standalone: true,
   templateUrl: './summary.page.html',
   styleUrl: './summary.page.scss',
+  imports: [
+    BroadbandTabs
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SummaryPage implements OnInit {

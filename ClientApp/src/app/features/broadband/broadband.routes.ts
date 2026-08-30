@@ -1,39 +1,47 @@
 import { Routes } from '@angular/router';
 
-import { broadbandNotImportedGuard } from './guards/broadband-not-imported.guard';
-import { broadbandRequiredGuard } from './guards/broadband-required.guard';
+import { broadbandNotImportedGuard } from '@broadband/guards/broadband-not-imported.guard';
+import { broadbandRequiredGuard } from '@broadband/guards/broadband-required.guard';
 
 export const BROADBAND_ROUTES: Routes = [
   {
-    path: 'import',
+    path: '',
     canActivate: [broadbandNotImportedGuard],
     loadComponent: () =>
-      import('./import/import.page')
-        .then(m => m.ImportPage)
+      import('@app/layout/site-layout/site-layout')
+        .then(m => m.SiteLayout),
+    children: [
+      {
+        path: 'import',
+        loadComponent: () =>
+          import('@broadband/import/import.page')
+            .then(m => m.ImportPage)
+      }
+    ],
   },
   {
     path: '',
     canActivate: [broadbandRequiredGuard],
     loadComponent: () =>
-      import('../../layout/site-layout/site-layout')
+      import('@app/layout/site-layout/site-layout')
         .then(m => m.SiteLayout),
     children: [
       {
-        path: 'data',
+        path: 'records',
         loadComponent: () =>
-          import('./data/data.page')
-            .then(m => m.DataPage)
+          import('@broadband/records/records.page')
+            .then(m => m.RecordsPage)
       },
       {
-        path: 'summary',
+        path: 'records/summary',
         loadComponent: () =>
-          import('./summary/summary.page')
+          import('@broadband/records/summary/summary.page')
             .then(m => m.SummaryPage)
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'data'
+        redirectTo: 'records'
       }
     ]
   }

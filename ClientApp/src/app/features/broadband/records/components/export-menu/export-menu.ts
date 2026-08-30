@@ -4,7 +4,7 @@ import {
   output
 } from '@angular/core';
 
-import { BroadbandExportFormat } from '../../../models/broadband-export-format';
+import { BroadbandExportFormat } from '@app/features/broadband/models/broadband-export-format';
 
 @Component({
   selector: 'app-export-menu',
