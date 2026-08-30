@@ -14,4 +14,5 @@ import { BroadbandRecord } from '@app/features/broadband/models/broadband-record
 })
 export class BroadbandTable {
   readonly records = input<BroadbandRecord[]>([]);
+  // readonly records = input<BroadbandRecord[]>([]);
 }

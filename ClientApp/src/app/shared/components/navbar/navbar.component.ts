@@ -5,8 +5,6 @@ import {
 } from '@angular/core';
 import {
   Router,
-  RouterLink,
-  RouterLinkActive
 } from '@angular/router';
 
 import { BroadbandStore } from '@broadband/state/broadband.store';
@@ -14,28 +12,24 @@ import { BroadbandStore } from '@broadband/state/broadband.store';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [
-    RouterLink,
-    RouterLinkActive
-  ],
-  templateUrl: './navbar.html',
-  styleUrl: './navbar.scss',
+  imports: [],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class NavbarComponent {
   private readonly router = inject(Router);
-  private readonly broadbandStore = inject(BroadbandStore);
+  protected readonly broadbandStore = inject(BroadbandStore);
+  protected readonly status = this.broadbandStore.status;
 
-  startOver(): void {
-    // TODO:
-    // 1. Call backend reset
-    // 2. Clear BroadbandStore
-    // 3. Navigate to /import
-
-    // Eventually:
-    //
-    // this.broadbandStore.reset();
-    // this.router.navigate(['/import']);
+  public reset(): void {
+    this.broadbandStore.clear().subscribe({
+      next: broadbandStatus => {
+        if (!broadbandStatus.hasImportedData) {
+          this.router.navigateByUrl('/import').then(r => {});
+        }
+      }
+    });
   }
 }

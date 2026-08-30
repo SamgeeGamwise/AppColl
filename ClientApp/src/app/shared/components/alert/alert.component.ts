@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-spinner',
+  selector: 'app-alert',
   standalone: true,
-  templateUrl: './spinner.component.html',
-  styleUrl: './spinner.component.scss',
+  templateUrl: './alert.component.html',
+  styleUrl: './alert.component.scss',
 })
-export class SpinnerComponent {
+export class AlertComponent {
   @Input() message = 'Loading...';
 }

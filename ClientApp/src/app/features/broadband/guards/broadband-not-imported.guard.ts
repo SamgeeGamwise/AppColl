@@ -1,14 +1,28 @@
-import { CanActivateFn } from '@angular/router';
+import {CanActivateFn, Router} from '@angular/router';
+import {inject} from '@angular/core';
+import {BroadbandStore} from '@broadband/state/broadband.store';
+import {catchError, map, of} from 'rxjs';
 
 export const broadbandNotImportedGuard: CanActivateFn = () => {
-  // TODO:
-  // Check BroadbandStore / GET /status.
-  //
-  // If not imported:
-  // return true;
-  //
-  // Otherwise:
-  // return router.createUrlTree(['/data']);
+  const store = inject(BroadbandStore);
+  const router = inject(Router);
 
-  return true;
+  const status = store.status();
+
+  if (status !== null) {
+    return status.hasImportedData
+      ? router.createUrlTree(['/records'])
+      : true;
+  }
+
+  return store.getStatus().pipe(
+    map(status =>
+      status.hasImportedData
+        ? router.createUrlTree(['/records'])
+        : true
+    ),
+    catchError(() =>
+      of(router.createUrlTree(['/records']))
+    )
+  );
 };

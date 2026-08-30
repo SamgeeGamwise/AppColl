@@ -1,4 +1,286 @@
 <ng-container>
   <app-broadband-tabs />
-  summary
+  @if (summary(); as summary) {
+    <div class="space-y-10">
+      <div>
+        <h1 class="text-base/7 font-semibold text-gray-900">
+          Broadband Summary
+        </h1>
+      </div>
+      <dl
+        class="grid grid-cols-1 gap-px overflow-hidden rounded-lg
+             bg-gray-200 sm:grid-cols-2 lg:grid-cols-4">
+
+        <div
+          class="flex flex-wrap items-baseline justify-between gap-x-4
+               gap-y-2 bg-white px-4 py-6 sm:px-6">
+          <dt class="text-sm/6 font-medium text-gray-500">
+            Records
+          </dt>
+
+          <dd
+            class="w-full flex-none text-3xl/10 font-medium
+                 tracking-tight text-gray-900">
+            {{ summary.recordCount }}
+          </dd>
+        </div>
+
+
+        <div
+          class="flex flex-wrap items-baseline justify-between gap-x-4
+               gap-y-2 bg-white px-4 py-6 sm:px-6">
+          <dt class="text-sm/6 font-medium text-gray-500">
+            Unique ZIP Codes
+          </dt>
+
+          <dd
+            class="w-full flex-none text-3xl/10 font-medium
+                 tracking-tight text-gray-900">
+            {{ summary.uniqueZipCodeCount }}
+          </dd>
+        </div>
+
+
+        <div
+          class="flex flex-wrap items-baseline justify-between gap-x-4
+               gap-y-2 bg-white px-4 py-6 sm:px-6">
+          <dt class="text-sm/6 font-medium text-gray-500">
+            Avg Home Broadband
+          </dt>
+
+          <dd
+            class="w-full flex-none text-3xl/10 font-medium
+                 tracking-tight text-gray-900">
+            {{ summary.averageHomeBroadbandAdoption | number:'1.1-1' }}%
+          </dd>
+        </div>
+
+
+        <div
+          class="flex flex-wrap items-baseline justify-between gap-x-4
+               gap-y-2 bg-white px-4 py-6 sm:px-6">
+          <dt class="text-sm/6 font-medium text-gray-500">
+            Avg Mobile Broadband
+          </dt>
+
+          <dd
+            class="w-full flex-none text-3xl/10 font-medium
+                 tracking-tight text-gray-900">
+            {{ summary.averageMobileBroadbandAdoption | number:'1.1-1' }}%
+          </dd>
+        </div>
+
+      </dl>
+
+      <section>
+        <div>
+          <h2 class="text-base/7 font-semibold text-gray-900">
+            Statistical Analysis
+          </h2>
+
+          <p class="mt-1 text-sm/6 text-gray-500">
+            Data averages of total records
+          </p>
+        </div>
+        <div class="mt-4 border-t border-gray-200">
+          <dl class="divide-y divide-gray-100">
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                No Internet Access
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageNoInternetAccessPercentage
+                    | number:'1.1-1'
+                }}%
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                No Home Broadband
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageNoHomeBroadbandAdoption
+                    | number:'1.1-1'
+                }}%
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                No Mobile Broadband
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageNoMobileBroadbandAdoption
+                    | number:'1.1-1'
+                }}%
+              </dd>
+            </div>
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Commercial Fiber Max ISP
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageCommercialFiberMaxIsp
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Public Computer Centers
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averagePublicComputerCenterCount
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Workstations in PCCs
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageWorkstationsInPccs
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Training Hours per Week
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageTrainingHoursPerWeek
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Public Wi-Fi Locations
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averagePublicWiFiCount
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Poles Reserved by Mobile
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averagePolesReservedByMobile
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Poles with Equipment Installed
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averagePolesWithEquipmentInstalled
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+
+            <div
+              class="px-4 py-4 sm:grid sm:grid-cols-3
+                   sm:gap-4 sm:px-0">
+              <dt class="text-sm/6 font-medium text-gray-900">
+                Density of Poles Reserved
+              </dt>
+
+              <dd
+                class="mt-1 text-sm/6 text-gray-700
+                     sm:col-span-2 sm:mt-0">
+                {{
+                  summary.averageDensityOfPolesReserved
+                    | number:'1.1-2'
+                }}
+              </dd>
+            </div>
+
+          </dl>
+        </div>
+      </section>
+    </div>
+  }
 </ng-container>

@@ -11,7 +11,8 @@ public class BroadbandJsonSerializer : IBroadbandSerializer
         Converters =
         {
             new JsonStringEnumConverter()
-        }
+        },
+        WriteIndented = true
     };
     
     public byte[] Serialize(IEnumerable<BroadbandRecord> records)

@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { BroadbandRecord } from '@broadband/models/broadband-record';
@@ -44,6 +44,18 @@ export class BroadbandApi {
       `${this.baseUrl}/reset`,
       null
     );
+  }
+
+  export(format: 'xml' | 'json' | 'csv'): Observable<HttpResponse<Blob>>   {
+    console.log('export ' + format);
+    const params = new HttpParams()
+      .set('format', format);
+
+    return this.http.get('/api/broadband/export', {
+      params,
+      observe: 'response',
+      responseType: 'blob'
+    });
   }
 
   // TODO:

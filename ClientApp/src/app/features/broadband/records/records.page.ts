@@ -12,6 +12,7 @@ import {BroadbandFilters} from '@broadband/records/components/broadband-filters/
 import {BroadbandTable} from '@broadband/records/components/broadband-table/broadband-table';
 import {ExportMenu} from '@broadband/records/components/export-menu/export-menu';
 import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadband-tabs';
+import {BroadbandRecord} from '@broadband/models/broadband-record';
 
 @Component({
   selector: 'app-records-page',
@@ -30,7 +31,7 @@ import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadb
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecordsPage implements OnInit {
-  private readonly broadbandStore = inject(BroadbandStore);
+  protected readonly broadbandStore = inject(BroadbandStore);
 
   readonly records = this.broadbandStore.records;
   readonly loading = this.broadbandStore.loading;
@@ -38,7 +39,6 @@ export class RecordsPage implements OnInit {
   readonly query = this.broadbandStore.query;
 
   ngOnInit(): void {
-    // TODO:
-    // Load the initial unfiltered records.
+    this.broadbandStore.loadRecords();
   }
 }

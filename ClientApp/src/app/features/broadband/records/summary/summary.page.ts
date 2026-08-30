@@ -7,6 +7,8 @@ import {
 
 import { BroadbandStore } from '@broadband/state/broadband.store';
 import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadband-tabs';
+import {DecimalPipe} from '@angular/common';
+import {ExportMenu} from '@broadband/records/components/export-menu/export-menu';
 
 @Component({
   selector: 'app-summary-page',
@@ -14,18 +16,19 @@ import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadb
   templateUrl: './summary.page.html',
   styleUrl: './summary.page.scss',
   imports: [
-    BroadbandTabs
+    BroadbandTabs,
+    DecimalPipe,
+    ExportMenu
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SummaryPage implements OnInit {
   private readonly broadbandStore = inject(BroadbandStore);
-
+  readonly summary = this.broadbandStore.summary;
   readonly loading = this.broadbandStore.loading;
   readonly error = this.broadbandStore.error;
 
   ngOnInit(): void {
-    // TODO:
-    // Load summary information.
+    this.broadbandStore.loadSummary();
   }
 }
