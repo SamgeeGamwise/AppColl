@@ -1,7 +1,7 @@
 using System.Xml.Serialization;
-using AppCollRider.Models;
+using AppColl.Models;
 
-namespace AppCollRider.Serialization.Xml;
+namespace AppColl.Serialization.Xml;
 
 public class BroadbandXmlSerializer : IBroadbandSerializer
 {

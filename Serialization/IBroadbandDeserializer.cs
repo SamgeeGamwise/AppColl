@@ -1,6 +1,6 @@
-using AppCollRider.Models;
+using AppColl.Models;
 
-namespace AppCollRider.Serialization;
+namespace AppColl.Serialization;
 
 public interface IBroadbandDeserializer
 {

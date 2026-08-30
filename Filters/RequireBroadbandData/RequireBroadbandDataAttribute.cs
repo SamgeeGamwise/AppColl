@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AppCollRider.Filters;
+namespace AppColl.Filters.RequireBroadbandData;
 
 public sealed class RequireBroadbandDataAttribute() : TypeFilterAttribute(typeof(RequireBroadbandDataFilter));

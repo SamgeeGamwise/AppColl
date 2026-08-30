@@ -6,12 +6,16 @@ import {
 import { Router } from '@angular/router';
 
 import { BroadbandStore } from '../state/broadband.store';
+import {Navbar} from '../../../shared/components/navbar/navbar';
 
 @Component({
   selector: 'app-import-page',
   standalone: true,
   templateUrl: './import.page.html',
   styleUrl: './import.page.scss',
+  imports: [
+    Navbar
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImportPage {
@@ -24,6 +28,7 @@ export class ImportPage {
   // readonly error = this.broadbandStore.error;
 
   importData(): void {
+
     // TODO:
     // 1. Call broadbandStore.importData()
     // 2. Wait for success

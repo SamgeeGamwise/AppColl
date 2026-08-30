@@ -1,6 +1,6 @@
-using AppCollRider.Models;
+using AppColl.Models;
 
-namespace AppCollRider.State;
+namespace AppColl.Data.State;
 
 public class BroadbandImportState
 {

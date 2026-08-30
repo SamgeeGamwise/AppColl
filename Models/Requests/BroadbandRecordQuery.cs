@@ -1,4 +1,4 @@
-namespace AppCollRider.Models.Requests;
+namespace AppColl.Models.Requests;
 
 public sealed class BroadbandRecordQuery
 {

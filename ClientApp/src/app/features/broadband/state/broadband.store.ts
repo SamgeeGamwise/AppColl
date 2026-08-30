@@ -1,13 +1,16 @@
-import { Injectable, signal } from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 
 import { BroadbandRecord } from '../models/broadband-record';
 import { BroadbandRecordQuery } from '../models/broadband-record-query';
 import { BroadbandStatus } from '../models/broadband-status';
+import { BroadbandApi } from '../../../core/api/broadband-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BroadbandStore {
+  private readonly api = inject(BroadbandApi);
+
   readonly status = signal<BroadbandStatus | null>(null);
 
   readonly records = signal<BroadbandRecord[]>([]);
@@ -24,6 +27,14 @@ export class BroadbandStore {
     this.query.set({});
     this.loading.set(false);
     this.error.set(null);
+  }
+
+  initialize(): void {
+
+  }
+
+  importData(broadbandStatus: BroadbandStatus): void {
+
   }
 
   // TODO:

@@ -1,4 +1,4 @@
-namespace AppCollRider.Sessions;
+namespace AppColl.Sessions;
 
 public sealed class BroadbandSession(IHttpContextAccessor httpContextAccessor)
 {    

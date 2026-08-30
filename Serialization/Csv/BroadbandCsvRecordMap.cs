@@ -1,8 +1,8 @@
-﻿using AppCollRider.Enums;
-using AppCollRider.Models;
+﻿using AppColl.Enums;
+using AppColl.Models;
 using CsvHelper.Configuration;
 
-namespace AppCollRider.Serialization.Csv;
+namespace AppColl.Serialization.Csv;
 
 internal sealed class BroadbandCsvRecordMap : ClassMap<BroadbandRecord>
 {

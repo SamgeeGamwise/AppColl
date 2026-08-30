@@ -1,8 +1,8 @@
-using AppCollRider.Enums;
+using AppColl.Enums;
 
-namespace AppCollRider.Models.Requests;
+namespace AppColl.Models.Requests;
 
 public class BroadbandExportQuery
 {
-    public BroadbandExportFormat? Format { get; init; }
+    public BroadbandExportFormat Format { get; init; }
 }

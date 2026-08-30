@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 using System.Xml.Serialization;
-using AppCollRider.Enums;
+using AppColl.Enums;
 
-namespace AppCollRider.Models;
+namespace AppColl.Models;
 
 public sealed class BroadbandRecord
 {

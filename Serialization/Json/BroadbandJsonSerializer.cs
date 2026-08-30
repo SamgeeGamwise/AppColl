@@ -1,8 +1,8 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using AppCollRider.Models;
+using AppColl.Models;
 
-namespace AppCollRider.Serialization.Json;
+namespace AppColl.Serialization.Json;
 
 public class BroadbandJsonSerializer : IBroadbandSerializer
 {

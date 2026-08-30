@@ -1,11 +1,11 @@
 using System.Text.Json.Serialization;
-using AppCollRider.Providers;
-using AppCollRider.Serialization.Csv;
-using AppCollRider.Serialization.Json;
-using AppCollRider.Serialization.Xml;
-using AppCollRider.Services;
-using AppCollRider.Sessions;
-using AppCollRider.State;
+using AppColl.Data.Providers;
+using AppColl.Data.State;
+using AppColl.Serialization.Csv;
+using AppColl.Serialization.Json;
+using AppColl.Serialization.Xml;
+using AppColl.Services;
+using AppColl.Sessions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
-using AppCollRider.Models;
+using AppColl.Models;
 
-namespace AppCollRider.Providers;
+namespace AppColl.Data.Providers;
 
 public interface IBroadbandDataProvider
 {

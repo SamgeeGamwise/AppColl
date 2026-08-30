@@ -1,3 +1,18 @@
 export interface BroadbandRecordQuery {
-  // Add filters as your backend contract requires.
+  zipCode?: string;
+
+  maxHomeBroadbandAdoption?: number;
+  minHomeBroadbandAdoption?: number;
+
+  maxMobileBroadbandAdoption?: number;
+  minMobileBroadbandAdoption?: number;
+
+  maxNoInternetAccessPercentage?: number;
+  minNoInternetAccessPercentage?: number;
+
+  maxNoHomeBroadbandAdoption?: number;
+  minNoHomeBroadbandAdoption?: number;
+
+  maxNoMobileBroadbandAdoption?: number;
+  minNoMobileBroadbandAdoption?: number;
 }

@@ -1,6 +1,6 @@
 import {
   ChangeDetectionStrategy,
-  Component,
+  Component, CUSTOM_ELEMENTS_SCHEMA,
   inject
 } from '@angular/core';
 import {
@@ -20,7 +20,8 @@ import { BroadbandStore } from '../../../features/broadband/state/broadband.stor
   ],
   templateUrl: './navbar.html',
   styleUrl: './navbar.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class Navbar {
   private readonly router = inject(Router);

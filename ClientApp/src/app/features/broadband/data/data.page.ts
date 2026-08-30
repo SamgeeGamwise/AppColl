@@ -9,6 +9,7 @@ import { BroadbandFilters } from './components/broadband-filters/broadband-filte
 import { BroadbandTable } from './components/broadband-table/broadband-table';
 import { ExportMenu } from './components/export-menu/export-menu';
 import { BroadbandStore } from '../state/broadband.store';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-data-page',
@@ -16,7 +17,8 @@ import { BroadbandStore } from '../state/broadband.store';
   imports: [
     BroadbandFilters,
     BroadbandTable,
-    ExportMenu
+    ExportMenu,
+    RouterLink
   ],
   templateUrl: './data.page.html',
   styleUrl: './data.page.scss',

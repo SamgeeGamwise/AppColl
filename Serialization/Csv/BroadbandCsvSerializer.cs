@@ -1,10 +1,10 @@
 using System.Globalization;
 using System.Text;
-using AppCollRider.Models;
+using AppColl.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace AppCollRider.Serialization.Csv;
+namespace AppColl.Serialization.Csv;
 
 public class BroadbandCsvSerializer : IBroadbandSerializer, IBroadbandDeserializer
 {

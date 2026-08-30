@@ -1,9 +1,9 @@
-using AppCollRider.Sessions;
-using AppCollRider.State;
+using AppColl.Data.State;
+using AppColl.Sessions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace AppCollRider.Filters;
+namespace AppColl.Filters.RequireBroadbandData;
 
 public sealed class RequireBroadbandDataFilter(IBroadbandStateStore broadbandStateStore) : IAsyncActionFilter
 {

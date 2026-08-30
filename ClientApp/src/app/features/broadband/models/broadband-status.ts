@@ -1,3 +1,5 @@
 export interface BroadbandStatus {
-  hasData: boolean;
+  hasImportedData: boolean;
+  recordCount: number | null;
+  importedAt: string | null;
 }

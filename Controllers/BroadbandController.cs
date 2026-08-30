@@ -1,32 +1,27 @@
-using AppCollRider.Filters;
-using AppCollRider.Services;
-using AppCollRider.Models;
-using AppCollRider.Models.Requests;
-using AppCollRider.Models.Response;
-using AppCollRider.Sessions;
+using AppColl.Filters.ProhibitBroadbandData;
+using AppColl.Filters.RequireBroadbandData;
+using AppColl.Models;
+using AppColl.Models.Requests;
+using AppColl.Models.Responses;
+using AppColl.Services;
+using AppColl.Sessions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AppCollRider.Controllers;
+namespace AppColl.Controllers;
 
 [ApiController]
 [Route("api/broadband")]
 public class BroadbandController(BroadbandService broadbandService, BroadbandSession broadbandSession) : ControllerBase
 {
+    [ProhibitBroadbandData]
     [HttpPost("import")]
-    public async Task<IActionResult> ImportAsync()
+    public async Task<BroadbandStatus> ImportAsync()
     {
-        var broadbandStateId = broadbandSession.GetStateId();
-        
-        if (broadbandStateId is not null)
-        {
-            return BadRequest();
-        }
-        
         var guid = await broadbandService.Import();
         
         broadbandSession.SetBroadbandStateId(guid);
-        
-        return NoContent();
+
+        return broadbandService.GetStateStatus(guid);
     }
     
     [RequireBroadbandData]
@@ -61,14 +56,14 @@ public class BroadbandController(BroadbandService broadbandService, BroadbandSes
     
     [RequireBroadbandData]
     [HttpPost("reset")]
-    public IActionResult Reset()
+    public BroadbandStatus Reset()
     {
         var broadbandStateId = broadbandSession.GetValidatedStateId();
         
         broadbandService.Reset(broadbandStateId);
         broadbandSession.ClearBroadbandStateId();
         
-        return NoContent();
+        return broadbandService.GetStateStatus(null);
     }
     
     [HttpGet("status")]

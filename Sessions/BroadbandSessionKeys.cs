@@ -1,4 +1,4 @@
-namespace AppCollRider.Sessions;
+namespace AppColl.Sessions;
 
 internal static class BroadbandSessionKeys
 {

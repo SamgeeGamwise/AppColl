@@ -1,7 +1,7 @@
-using AppCollRider.Models;
-using AppCollRider.Serialization.Csv;
+using AppColl.Models;
+using AppColl.Serialization.Csv;
 
-namespace AppCollRider.Providers;
+namespace AppColl.Data.Providers;
 
 public class BroadbandCsvDataProvider(HttpClient httpClient, BroadbandCsvSerializer csvSerializer) : IBroadbandDataProvider
 {

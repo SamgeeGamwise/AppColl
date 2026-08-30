@@ -1,4 +1,4 @@
-namespace AppCollRider.Enums;
+namespace AppColl.Enums;
 
 public enum BroadbandExportFormat
 {

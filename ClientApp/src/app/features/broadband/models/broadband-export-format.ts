@@ -1,4 +1,3 @@
-export type BroadbandExportFormat =
-  | 'json'
-  | 'xml'
-  | 'raw';
+export interface BroadbandExportQuery {
+  format: string;
+}

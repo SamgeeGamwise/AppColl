@@ -1,9 +1,9 @@
-using AppCollRider.Enums;
+using AppColl.Enums;
 using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace AppCollRider.Serialization.Csv;
+namespace AppColl.Serialization.Csv;
 
 public class BroadbandConnectionLevelConverter : DefaultTypeConverter
 {

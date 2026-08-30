@@ -14,8 +14,8 @@ export class BroadbandApi {
 
   private readonly baseUrl = '/api/broadband';
 
-  importData(): Observable<void> {
-    return this.http.post<void>(
+  importData(): Observable<BroadbandStatus> {
+    return this.http.post<BroadbandStatus>(
       `${this.baseUrl}/import`,
       null
     );
@@ -39,8 +39,8 @@ export class BroadbandApi {
     );
   }
 
-  reset(): Observable<void> {
-    return this.http.post<void>(
+  reset(): Observable<BroadbandStatus> {
+    return this.http.post<BroadbandStatus>(
       `${this.baseUrl}/reset`,
       null
     );

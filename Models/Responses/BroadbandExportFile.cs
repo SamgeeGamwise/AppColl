@@ -1,4 +1,4 @@
-namespace AppCollRider.Models.Response;
+namespace AppColl.Models.Responses;
 
 public sealed class BroadbandExportFile
 {
