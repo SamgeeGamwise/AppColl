@@ -4,7 +4,7 @@ Broadband data collection app with a .NET backend and Angular frontend.
 
 ## Setup
 
-Install .NET SDK 10.0+ and Node.js 20+.
+Install .NET SDK 10.0+ and Node.js 24.15.0+.
 
 ## Run
 
