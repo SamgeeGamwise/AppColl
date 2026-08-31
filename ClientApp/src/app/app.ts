@@ -1,12 +1,11 @@
-import {Component, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {SiteLayout} from '@app/layout/site-layout/site-layout';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SiteLayout],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {}

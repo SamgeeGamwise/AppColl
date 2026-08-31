@@ -1,18 +1,18 @@
 export interface BroadbandRecordQuery {
-  zipCode?: string;
+  zipCode: string | null;
 
-  maxHomeBroadbandAdoption?: number;
-  minHomeBroadbandAdoption?: number;
+  maxHomeBroadbandAdoption: number | null;
+  minHomeBroadbandAdoption: number | null;
 
-  maxMobileBroadbandAdoption?: number;
-  minMobileBroadbandAdoption?: number;
+  maxMobileBroadbandAdoption: number | null;
+  minMobileBroadbandAdoption: number | null;
 
-  maxNoInternetAccessPercentage?: number;
-  minNoInternetAccessPercentage?: number;
+  maxNoInternetAccessPercentage: number | null;
+  minNoInternetAccessPercentage: number | null;
 
-  maxNoHomeBroadbandAdoption?: number;
-  minNoHomeBroadbandAdoption?: number;
+  maxNoHomeBroadbandAdoption: number | null;
+  minNoHomeBroadbandAdoption: number | null;
 
-  maxNoMobileBroadbandAdoption?: number;
-  minNoMobileBroadbandAdoption?: number;
+  maxNoMobileBroadbandAdoption: number | null;
+  minNoMobileBroadbandAdoption: number | null;
 }

@@ -7,6 +7,7 @@ import {
 import { BroadbandExportFormat } from '@app/features/broadband/models/broadband-export-format';
 import {BroadbandApi} from '@app/core/api/broadband-api.service';
 import {HttpResponse} from '@angular/common/http';
+import {BroadbandStore} from '@broadband/state/broadband.store';
 
 @Component({
   selector: 'app-export-menu',
@@ -16,7 +17,7 @@ import {HttpResponse} from '@angular/common/http';
 })
 export class ExportMenu {
   readonly exportRequested = output<BroadbandExportFormat>();
-  readonly broadbandApi = inject(BroadbandApi);
+  readonly broadbandStore = inject(BroadbandStore);
 
   private getFileName(
     response: HttpResponse<Blob>,
@@ -33,8 +34,8 @@ export class ExportMenu {
     return match?.[1] ?? fallback;
   }
 
-  export(format: 'xml' | 'json' | 'csv'): void {
-    this.broadbandApi.export(format).subscribe(response => {
+  export(format: BroadbandExportFormat): void {
+    this.broadbandStore.export(format).subscribe(response => {
       if (!response.body) {
         return;
       }

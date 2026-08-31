@@ -12,7 +12,6 @@ import {BroadbandFilters} from '@broadband/records/components/broadband-filters/
 import {BroadbandTable} from '@broadband/records/components/broadband-table/broadband-table';
 import {ExportMenu} from '@broadband/records/components/export-menu/export-menu';
 import {BroadbandTabs} from '@broadband/records/components/broadband-tabs/broadband-tabs';
-import {BroadbandRecord} from '@broadband/models/broadband-record';
 
 @Component({
   selector: 'app-records-page',
@@ -21,9 +20,6 @@ import {BroadbandRecord} from '@broadband/models/broadband-record';
     BroadbandFilters,
     BroadbandTable,
     ExportMenu,
-    RouterLink,
-    NgClass,
-    RouterLinkActive,
     BroadbandTabs
   ],
   templateUrl: './records.page.html',
@@ -36,7 +32,6 @@ export class RecordsPage implements OnInit {
   readonly records = this.broadbandStore.records;
   readonly loading = this.broadbandStore.loading;
   readonly error = this.broadbandStore.error;
-  readonly query = this.broadbandStore.query;
 
   ngOnInit(): void {
     this.broadbandStore.loadRecords();

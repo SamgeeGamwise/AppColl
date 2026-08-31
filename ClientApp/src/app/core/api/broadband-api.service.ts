@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { BroadbandRecord } from '@broadband/models/broadband-record';
 import { BroadbandStatus } from '@broadband/models/broadband-status';
 import { BroadbandSummary } from '@broadband/models/broadband-summary';
+import {BroadbandRecordQuery} from '@broadband/models/broadband-record-query';
+import {BroadbandExportFormat} from '@broadband/models/broadband-export-format';
 
 @Injectable({
   providedIn: 'root'
@@ -27,16 +29,32 @@ export class BroadbandApi {
     );
   }
 
-  getRecords(): Observable<BroadbandRecord[]> {
-    return this.http.get<BroadbandRecord[]>(
-      `${this.baseUrl}/records`
-    );
+  getRecords(query: BroadbandRecordQuery | null): Observable<BroadbandRecord[]> {
+    let params = new HttpParams();
+
+    if (query) {
+      Object.entries(query).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<BroadbandRecord[]>(`${this.baseUrl}/records`, { params });
   }
 
-  getSummary(): Observable<BroadbandSummary> {
-    return this.http.get<BroadbandSummary>(
-      `${this.baseUrl}/summary`
-    );
+  getSummary(query: BroadbandRecordQuery | null): Observable<BroadbandSummary> {
+    let params = new HttpParams();
+
+    if (query) {
+      Object.entries(query).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
+
+    return this.http.get<BroadbandSummary>(`${this.baseUrl}/summary`, { params });
   }
 
   reset(): Observable<BroadbandStatus> {
@@ -46,10 +64,17 @@ export class BroadbandApi {
     );
   }
 
-  export(format: 'xml' | 'json' | 'csv'): Observable<HttpResponse<Blob>>   {
-    console.log('export ' + format);
-    const params = new HttpParams()
+  export(format: BroadbandExportFormat, query: BroadbandRecordQuery | null): Observable<HttpResponse<Blob>>   {
+    let params = new HttpParams()
       .set('format', format);
+
+    if (query) {
+      Object.entries(query).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params = params.set(key, value.toString());
+        }
+      });
+    }
 
     return this.http.get('/api/broadband/export', {
       params,
@@ -57,9 +82,4 @@ export class BroadbandApi {
       responseType: 'blob'
     });
   }
-
-  // TODO:
-  // getRecords(query)
-  // getSummary(query)
-  // export(format, query)
 }

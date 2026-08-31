@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import {Component, inject, Input} from '@angular/core';
+import {BroadbandStore} from '@broadband/state/broadband.store';
 
 @Component({
-  selector: 'app-alert',
+  selector: 'app-alert-component',
   standalone: true,
   templateUrl: './alert.component.html',
   styleUrl: './alert.component.scss',
 })
 export class AlertComponent {
-  @Input() message = 'Loading...';
+  protected readonly broadbandStore = inject(BroadbandStore);
 }

@@ -1,3 +1,1 @@
-export interface BroadbandExportFormat {
-  format: string;
-}
+export type BroadbandExportFormat = 'xml' | 'json' | 'csv';

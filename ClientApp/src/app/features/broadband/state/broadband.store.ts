@@ -6,6 +6,8 @@ import { BroadbandStatus } from '@broadband/models/broadband-status';
 import { BroadbandApi } from '@app/core/api/broadband-api.service';
 import {catchError, EMPTY, finalize, Observable, tap, throwError} from 'rxjs';
 import {BroadbandSummary} from '@broadband/models/broadband-summary';
+import {BroadbandExportFormat} from '@broadband/models/broadband-export-format';
+import {HttpParams, HttpResponse} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,20 +21,12 @@ export class BroadbandStore {
 
   readonly summary = signal<BroadbandSummary | null>(null);
 
-  readonly query = signal<BroadbandRecordQuery>({});
+  readonly query = signal<BroadbandRecordQuery | null>(null)
 
   readonly loading = signal(false);
 
   readonly error = signal<string | null>(null);
 
-
-  checkStatusLoaded(): void {
-    if (this.status() !== null || this.loading()) {
-      return;
-    }
-
-    this.getStatus();
-  }
 
   clear(): Observable<BroadbandStatus> {
     this.loading.set(true);
@@ -44,7 +38,7 @@ export class BroadbandStore {
           this.status.set(null);
           this.records.set([]);
           this.summary.set(null)
-          this.query.set({});
+          this.query.set(null)
           this.loading.set(false);
           this.error.set(null);
         }
@@ -87,11 +81,24 @@ export class BroadbandStore {
     )
   }
 
+  export(format: BroadbandExportFormat): Observable<HttpResponse<Blob>> {
+    this.loading.set(true);
+    this.error.set(null);
+
+    return this.api.export(format, this.query()).pipe(
+      catchError(error => {
+        this.error.set('Unable to import broadband data.');
+        return throwError(() => error);
+      }),
+      finalize(() => this.loading.set(false))
+    );
+  }
+
   loadRecords(): void {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getRecords().pipe(
+    this.api.getRecords(this.query()).pipe(
       tap(records => {
         this.records.set(records);
       }),
@@ -109,7 +116,7 @@ export class BroadbandStore {
     this.loading.set(true);
     this.error.set(null);
 
-    this.api.getSummary().pipe(
+    this.api.getSummary(this.query()).pipe(
       tap(summary => {
         this.summary.set(summary);
       }),
@@ -122,9 +129,4 @@ export class BroadbandStore {
       })
     ).subscribe();
   }
-
-  // TODO:
-  // updateQuery()
-  // loadSummary()
-  // export()
 }

@@ -6,133 +6,19 @@
         <table class="min-w-full border-separate border-spacing-0 text-xs">
 
           <thead>
-          <tr>
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 py-2 pr-2 pl-4 text-left
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm sm:pl-6 lg:pl-8">
-              ZIP
-            </th>
+            <tr>
+              @for (columnHeader of columnHeaders; track i; let i = $index) {
 
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Home Broadband
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Mobile Broadband
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              No Internet
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              No Home Broadband
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              No Mobile Broadband
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Max Fiber ISP
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Computer Centers
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              PCC Workstations
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Avg Training Hrs
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Public Wi-Fi
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Poles Reserved
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm">
-              Equipment Installed
-            </th>
-
-            <th
-              scope="col"
-              class="sticky top-0 z-20 border-b border-gray-300
-                       bg-white/95 px-2 py-2 pr-4 text-right
-                       font-semibold whitespace-nowrap text-gray-900
-                       backdrop-blur-sm sm:pr-6 lg:pr-8">
-              Pole Density
-            </th>
-          </tr>
+                  <th
+                    scope="col"
+                    class="sticky top-0 z-20 border-b border-gray-300
+                         bg-white/95 py-2 pr-2 pl-4 text-left
+                         font-semibold whitespace-nowrap text-gray-900
+                         backdrop-blur-sm sm:pl-6 lg:pl-8">
+                    {{ columnHeader }}
+                  </th>
+              }
+            </tr>
           </thead>
 
           <tbody class="bg-white">
@@ -174,6 +60,18 @@
                   class="border-b border-gray-200 px-2 py-2
                          text-right whitespace-nowrap text-gray-600">
                   {{ record.no_mobile_broadband_adoption }}
+                </td>
+
+                <td
+                  class="border-b border-gray-200 px-2 py-2
+                         text-right whitespace-nowrap text-gray-600">
+                  {{ record.no_home_broadband_adoption_1 }}
+                </td>
+
+                <td
+                  class="border-b border-gray-200 px-2 py-2
+                         text-right whitespace-nowrap text-gray-600">
+                  {{ record.no_mobile_broadband_adoption_1 }}
                 </td>
 
                 <td
