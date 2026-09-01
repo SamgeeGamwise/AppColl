@@ -1,5 +1,3 @@
-// broadband.models.ts
-
 export interface BroadbandRecord {
   oid: number;
   zip_code: string;

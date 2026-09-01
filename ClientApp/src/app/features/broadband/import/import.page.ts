@@ -15,11 +15,6 @@ export class ImportPage {
   private readonly router = inject(Router);
   private readonly broadbandStore = inject(BroadbandStore);
 
-  // Eventually expose store state:
-  //
-  // readonly loading = this.broadbandStore.loading;
-  // readonly error = this.broadbandStore.error;
-
   importData(): void {
     this.broadbandStore.importData().subscribe({
       next: (broadbandStatus) => {
