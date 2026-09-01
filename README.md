@@ -1,6 +1,6 @@
 # AppColl
 
-Broadband data collection app with a .NET backend and Angular frontend.
+Broadband data collection app with a .NET backend and Angular frontend with Signals and Tailwind Pro UI.
 
 ## Setup
 
